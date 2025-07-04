@@ -1309,18 +1309,20 @@ function App() {
       {/* Navigation Tabs */}
       <nav className="bg-gray-800 sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
-            {['bosses', 'characters', 'builds', 'achievements', 'walkthroughs', 'creatures'].map((tab) => (
+          <div className="flex space-x-8 overflow-x-auto">
+            {['bosses', 'characters', 'builds', 'achievements', 'walkthroughs', 'creatures', 'secrets', 'weapon-skills', 'weapon-passives'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-4 px-2 border-b-2 font-medium text-sm capitalize ${
+                className={`py-4 px-2 border-b-2 font-medium text-sm capitalize whitespace-nowrap ${
                   activeTab === tab
                     ? 'border-purple-500 text-purple-400'
                     : 'border-transparent text-gray-400 hover:text-gray-300'
                 }`}
               >
-                {tab === 'creatures' ? 'Creatures & Enemies' : tab}
+                {tab === 'creatures' ? 'Creatures & Enemies' : 
+                 tab === 'weapon-skills' ? 'Weapon Skills' :
+                 tab === 'weapon-passives' ? 'Weapon Passives' : tab}
               </button>
             ))}
           </div>
