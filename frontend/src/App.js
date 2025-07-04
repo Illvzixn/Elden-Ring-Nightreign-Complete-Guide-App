@@ -75,6 +75,9 @@ function App() {
       const walkthroughsData = await walkthroughsRes.json();
       const customBuildsData = await customBuildsRes.json();
       const creaturesData = await creaturesRes.json();
+      const secretsData = await secretsRes.json();
+      const weaponSkillsData = await weaponSkillsRes.json();
+      const weaponPassivesData = await weaponPassivesRes.json();
 
       setBosses(bossesData.bosses || []);
       setCharacters(charactersData.characters || []);
@@ -83,6 +86,9 @@ function App() {
       setWalkthroughs(walkthroughsData.walkthroughs || []);
       setCustomBuilds(customBuildsData.custom_builds || []);
       setCreatures(creaturesData.creatures || []);
+      setSecrets(secretsData.secrets || []);
+      setWeaponSkills(weaponSkillsData.weapon_skills || []);
+      setWeaponPassives(weaponPassivesData.weapon_passives || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
