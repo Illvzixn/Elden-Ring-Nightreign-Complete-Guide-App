@@ -48,8 +48,8 @@ def initialize_data():
             "weaknesses": ["Holy"],
             "damage_types": ["Physical", "Fire"],
             "difficulty_rating": 3,
-            "min_level": 1,
-            "max_level": 5,
+            "min_level": 13,
+            "max_level": 15,
             "recommended_strategies": [
                 "Use holy damage attacks to exploit weaknesses",
                 "Focus on dodging its charging attacks",
