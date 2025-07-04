@@ -213,10 +213,21 @@ function App() {
 
   const getAchievementColor = (difficulty) => {
     switch (difficulty) {
+      case 'Platinum': return 'text-yellow-400';
       case 'Extreme': return 'text-red-500';
       case 'Very Hard': return 'text-orange-500';
       case 'Hard': return 'text-yellow-500';
       case 'Medium': return 'text-blue-500';
+      default: return 'text-green-500';
+    }
+  };
+
+  const getThreatColor = (level) => {
+    switch (level) {
+      case 'Ultimate': return 'text-red-600';
+      case 'Extreme': return 'text-red-500';
+      case 'High': return 'text-orange-500';
+      case 'Medium': return 'text-yellow-500';
       default: return 'text-green-500';
     }
   };
@@ -308,15 +319,35 @@ function App() {
     </div>
   );
 
-  const getThreatColor = (level) => {
-    switch (level) {
-      case 'Ultimate': return 'text-red-600';
-      case 'Extreme': return 'text-red-500';
-      case 'High': return 'text-orange-500';
-      case 'Medium': return 'text-yellow-500';
-      default: return 'text-green-500';
-    }
-  };
+  const AchievementCard = ({ achievement }) => (
+    <div 
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
+      onClick={() => setSelectedAchievement(achievement)}
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-bold text-white">{achievement.name}</h3>
+          <div className="text-right">
+            <span className={`text-sm font-bold ${getAchievementColor(achievement.difficulty)}`}>
+              {achievement.difficulty}
+            </span>
+            <div className="text-xs text-gray-400">#{achievement.rank}</div>
+          </div>
+        </div>
+        <p className="text-gray-300 text-sm mb-3">{achievement.description}</p>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Category:</span>
+            <span className="text-white text-sm">{achievement.category}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Completion:</span>
+            <span className="text-green-400 text-sm">{achievement.percentage}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   const CreatureCard = ({ creature }) => (
     <div 
@@ -343,31 +374,6 @@ function App() {
           <div className="flex justify-between items-center">
             <span className="text-purple-400 text-sm">Weaknesses:</span>
             <span className="text-yellow-400 text-sm">{creature.weaknesses.join(', ')}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-    <div 
-      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
-      onClick={() => setSelectedAchievement(achievement)}
-    >
-      <div className="p-4">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-bold text-white">{achievement.name}</h3>
-          <span className={`text-sm font-bold ${getAchievementColor(achievement.difficulty)}`}>
-            {achievement.difficulty}
-          </span>
-        </div>
-        <p className="text-gray-300 text-sm mb-3">{achievement.description}</p>
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-purple-400 text-sm">Category:</span>
-            <span className="text-white text-sm">{achievement.category}</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-purple-400 text-sm">Completion:</span>
-            <span className="text-green-400 text-sm">{achievement.percentage}%</span>
           </div>
         </div>
       </div>
@@ -445,6 +451,17 @@ function App() {
           </div>
         </div>
       )}
+
+      {searchResults.creatures && searchResults.creatures.length > 0 && (
+        <div className="mb-6">
+          <h4 className="text-lg font-semibold text-purple-400 mb-3">Creatures & Enemies</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {searchResults.creatures.map((creature) => (
+              <CreatureCard key={creature.id} creature={creature} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 
@@ -509,10 +526,59 @@ function App() {
             <option value="Spellcaster">Spellcaster</option>
           </select>
         )}
+
+        {activeTab === 'creatures' && (
+          <>
+            <select
+              value={filters.creatureType}
+              onChange={(e) => setFilters({...filters, creatureType: e.target.value})}
+              className="px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              <option value="">All Types</option>
+              <option value="Nightlord">Nightlord</option>
+              <option value="Elite Enemy">Elite Enemy</option>
+              <option value="Large Enemy">Large Enemy</option>
+              <option value="Medium Enemy">Medium Enemy</option>
+              <option value="Small Enemy">Small Enemy</option>
+              <option value="Special Enemy">Special Enemy</option>
+            </select>
+            <select
+              value={filters.threatLevel}
+              onChange={(e) => setFilters({...filters, threatLevel: e.target.value})}
+              className="px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              <option value="">All Threat Levels</option>
+              <option value="Ultimate">Ultimate</option>
+              <option value="Extreme">Extreme</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+            <select
+              value={filters.weakness}
+              onChange={(e) => setFilters({...filters, weakness: e.target.value})}
+              className="px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              <option value="">All Weaknesses</option>
+              <option value="Holy">Holy</option>
+              <option value="Lightning">Lightning</option>
+              <option value="Fire">Fire</option>
+              <option value="Poison">Poison</option>
+              <option value="Madness">Madness</option>
+              <option value="Magic">Magic</option>
+              <option value="Strike">Strike</option>
+              <option value="Pierce">Pierce</option>
+            </select>
+          </>
+        )}
       </div>
       <div className="flex space-x-2 mt-4">
         <button
-          onClick={activeTab === 'bosses' ? handleFilterBosses : handleFilterCharacters}
+          onClick={() => {
+            if (activeTab === 'bosses') handleFilterBosses();
+            else if (activeTab === 'characters') handleFilterCharacters();
+            else if (activeTab === 'creatures') handleFilterCreatures();
+          }}
           className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-md text-white font-semibold"
         >
           Apply Filters
@@ -616,7 +682,7 @@ function App() {
     </div>
   );
 
-  // Modal components remain the same but without images
+  // Modal components remain the same but updated for new level system
   const BossDetailModal = () => (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-gray-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -855,7 +921,7 @@ function App() {
               </div>
               
               <div className="bg-gray-800 p-4 rounded-lg mb-4">
-                <h3 className="text-xl font-bold text-white mb-2">Recommended Stats</h3>
+                <h3 className="text-xl font-bold text-white mb-2">Recommended Stats (Level 15)</h3>
                 <div className="space-y-1">
                   {Object.entries(selectedBuild.recommended_stats).map(([stat, value]) => (
                     <div key={stat} className="flex justify-between">
@@ -900,6 +966,10 @@ function App() {
             <p className="text-gray-300 mb-4">{selectedAchievement.description}</p>
             <div className="space-y-3">
               <div className="flex justify-between">
+                <span className="text-purple-400">Rank:</span>
+                <span className="text-white">#{selectedAchievement.rank} / 37</span>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-purple-400">Category:</span>
                 <span className="text-white">{selectedAchievement.category}</span>
               </div>
@@ -920,6 +990,72 @@ function App() {
               <div>
                 <span className="text-purple-400">Requirements:</span>
                 <p className="text-white mt-1">{selectedAchievement.requirements}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const CreatureDetailModal = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-900 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-3xl font-bold text-white">{selectedCreature.name}</h2>
+            <button 
+              onClick={() => setSelectedCreature(null)}
+              className="text-gray-400 hover:text-white text-xl"
+            >
+              ×
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-800 p-4 rounded-lg">
+              <h3 className="text-xl font-bold text-white mb-2">Creature Information</h3>
+              <p className="text-gray-300 mb-3">{selectedCreature.description}</p>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-purple-400">Type:</span>
+                  <span className="text-white">{selectedCreature.type}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-purple-400">Threat Level:</span>
+                  <span className={`font-bold ${getThreatColor(selectedCreature.threat_level)}`}>
+                    {selectedCreature.threat_level}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-purple-400">Location:</span>
+                  <span className="text-blue-400">{selectedCreature.location}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-purple-400">Weaknesses:</span>
+                  <span className="text-yellow-400">{selectedCreature.weaknesses.join(', ')}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-purple-400">Resistances:</span>
+                  <span className="text-red-400">{selectedCreature.resistances.join(', ')}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div className="bg-gray-800 p-4 rounded-lg mb-4">
+                <h3 className="text-xl font-bold text-white mb-2">Combat Details</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-purple-400">Damage Types:</span>
+                    <span className="text-red-400 ml-2">{selectedCreature.damage_types.join(', ')}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gray-800 p-4 rounded-lg">
+                <h3 className="text-xl font-bold text-white mb-2">Notes & Strategy</h3>
+                <p className="text-gray-300">{selectedCreature.notes}</p>
               </div>
             </div>
           </div>
@@ -1021,7 +1157,7 @@ function App() {
               Master the <span className="text-purple-400">Nightreign</span>
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 mb-8">
-              Complete boss guides, character builds, achievements, and walkthroughs
+              Complete boss guides, character builds, achievements, walkthroughs, and creature database
             </p>
             <div className="flex justify-center space-x-4">
               <button
@@ -1051,7 +1187,7 @@ function App() {
       <nav className="bg-gray-800 sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
-            {['bosses', 'characters', 'builds', 'achievements', 'walkthroughs'].map((tab) => (
+            {['bosses', 'characters', 'builds', 'achievements', 'walkthroughs', 'creatures'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -1061,7 +1197,7 @@ function App() {
                     : 'border-transparent text-gray-400 hover:text-gray-300'
                 }`}
               >
-                {tab}
+                {tab === 'creatures' ? 'Creatures & Enemies' : tab}
               </button>
             ))}
           </div>
@@ -1074,7 +1210,7 @@ function App() {
         {searchResults && <SearchResults />}
 
         {/* Filter Panel */}
-        {(activeTab === 'bosses' || activeTab === 'characters') && <FilterPanel />}
+        {(activeTab === 'bosses' || activeTab === 'characters' || activeTab === 'creatures') && <FilterPanel />}
 
         {/* Build Creation Button */}
         {activeTab === 'builds' && (
@@ -1146,6 +1282,17 @@ function App() {
             </div>
           </div>
         )}
+
+        {activeTab === 'creatures' && (
+          <div>
+            <h2 className="text-3xl font-bold mb-8">Creatures & Enemies ({creatures.length})</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {creatures.map((creature) => (
+                <CreatureCard key={creature.id} creature={creature} />
+              ))}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Modals */}
@@ -1154,6 +1301,7 @@ function App() {
       {selectedBuild && <BuildDetailModal />}
       {selectedAchievement && <AchievementDetailModal />}
       {selectedWalkthrough && <WalkthroughDetailModal />}
+      {selectedCreature && <CreatureDetailModal />}
       {showCustomBuildForm && <CustomBuildForm />}
     </div>
   );
