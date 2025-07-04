@@ -1,38 +1,274 @@
-.App {
-    text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+::-webkit-scrollbar-track {
+  background: #374151;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 4px;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
 
-.App-link {
-    color: #61dafb;
+/* Dark theme base styles */
+body {
+  background-color: #111827;
+  color: #f3f4f6;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Custom gradient backgrounds */
+.bg-gradient-nightreign {
+  background: linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #000000 100%);
+}
+
+.bg-gradient-boss {
+  background: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #000000 100%);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transform transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+}
+
+/* Difficulty rating colors */
+.difficulty-easy {
+  @apply text-green-400;
+}
+
+.difficulty-medium {
+  @apply text-yellow-400;
+}
+
+.difficulty-hard {
+  @apply text-orange-400;
+}
+
+.difficulty-extreme {
+  @apply text-red-400;
+}
+
+/* Custom spacing */
+.container-padding {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
+/* Modal animations */
+.modal-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Text effects */
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+}
+
+/* Loading spinner */
+.spinner {
+  border: 4px solid #374151;
+  border-top: 4px solid #7c3aed;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900;
+}
+
+/* Hero section styling */
+.hero-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1505635552518-3448ff116af3');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Responsive text sizes */
+@media (max-width: 640px) {
+  .text-responsive-xl {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 641px) {
+  .text-responsive-xl {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-xl {
+    font-size: 3rem;
+  }
+}
+
+/* Custom utility classes */
+.bg-dark-card {
+  @apply bg-gray-800 bg-opacity-90;
+}
+
+.text-primary {
+  @apply text-purple-400;
+}
+
+.text-secondary {
+  @apply text-gray-300;
+}
+
+.border-primary {
+  @apply border-purple-500;
+}
+
+/* Stat bars */
+.stat-bar {
+  @apply bg-gray-700 rounded-full overflow-hidden;
+}
+
+.stat-fill {
+  @apply h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-1000;
+}
+
+/* Image overlay effects */
+.image-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent;
+}
+
+/* Custom grid layouts */
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-auto-fill {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* Enhanced card styles */
+.card-glow {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+}
+
+/* Tooltip styles */
+.tooltip {
+  @apply absolute z-50 px-2 py-1 text-sm text-white bg-gray-800 rounded-md shadow-lg;
+}
+
+/* Badge styles */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-primary {
+  @apply bg-purple-100 text-purple-800;
+}
+
+.badge-secondary {
+  @apply bg-gray-100 text-gray-800;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-800;
+}
+
+/* Dark mode badge styles */
+.dark .badge-primary {
+  @apply bg-purple-800 text-purple-100;
+}
+
+.dark .badge-secondary {
+  @apply bg-gray-700 text-gray-100;
+}
+
+.dark .badge-success {
+  @apply bg-green-800 text-green-100;
+}
+
+.dark .badge-warning {
+  @apply bg-yellow-800 text-yellow-100;
+}
+
+.dark .badge-danger {
+  @apply bg-red-800 text-red-100;
 }
