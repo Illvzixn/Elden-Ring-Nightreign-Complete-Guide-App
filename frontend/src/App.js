@@ -65,6 +65,7 @@ function App() {
       const achievementsData = await achievementsRes.json();
       const walkthroughsData = await walkthroughsRes.json();
       const customBuildsData = await customBuildsRes.json();
+      const creaturesData = await creaturesRes.json();
 
       setBosses(bossesData.bosses || []);
       setCharacters(charactersData.characters || []);
@@ -72,6 +73,7 @@ function App() {
       setAchievements(achievementsData.achievements || []);
       setWalkthroughs(walkthroughsData.walkthroughs || []);
       setCustomBuilds(customBuildsData.custom_builds || []);
+      setCreatures(creaturesData.creatures || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
