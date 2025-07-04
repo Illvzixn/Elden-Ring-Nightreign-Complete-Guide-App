@@ -359,9 +359,19 @@ if __name__ == "__main__":
     test_suite.addTest(EldenRingNightReignAPITest('test_05_get_character_by_id'))
     test_suite.addTest(EldenRingNightReignAPITest('test_06_get_builds'))
     test_suite.addTest(EldenRingNightReignAPITest('test_07_get_build_by_id'))
-    test_suite.addTest(EldenRingNightReignAPITest('test_08_boss_recommendations'))
-    test_suite.addTest(EldenRingNightReignAPITest('test_09_search_functionality'))
-    test_suite.addTest(EldenRingNightReignAPITest('test_10_error_handling'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_08_get_achievements'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_09_get_walkthroughs'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_10_get_walkthrough_by_character'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_11_boss_recommendations'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_12_search_functionality'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_13_filter_bosses'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_14_filter_characters'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_15_custom_build_creation'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_16_data_validation'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_17_error_handling'))
     
     runner = unittest.TextTestRunner()
-    runner.run(test_suite)
+    result = runner.run(test_suite)
+    
+    # Return non-zero exit code if any tests failed
+    sys.exit(not result.wasSuccessful())
