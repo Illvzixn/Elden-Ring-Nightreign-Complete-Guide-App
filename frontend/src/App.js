@@ -552,6 +552,39 @@ function App() {
           </div>
         </div>
       )}
+
+      {searchResults.secrets && searchResults.secrets.length > 0 && (
+        <div className="mb-6">
+          <h4 className="text-lg font-semibold text-purple-400 mb-3">Secrets</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {searchResults.secrets.map((secret) => (
+              <SecretCard key={secret.id} secret={secret} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {searchResults.weapon_skills && searchResults.weapon_skills.length > 0 && (
+        <div className="mb-6">
+          <h4 className="text-lg font-semibold text-purple-400 mb-3">Weapon Skills</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {searchResults.weapon_skills.map((skill) => (
+              <WeaponSkillCard key={skill.id} skill={skill} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {searchResults.weapon_passives && searchResults.weapon_passives.length > 0 && (
+        <div className="mb-6">
+          <h4 className="text-lg font-semibold text-purple-400 mb-3">Weapon Passives</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {searchResults.weapon_passives.map((passive) => (
+              <WeaponPassiveCard key={passive.id} passive={passive} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 
