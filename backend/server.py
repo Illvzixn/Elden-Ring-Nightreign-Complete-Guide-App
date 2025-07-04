@@ -148,8 +148,8 @@ def initialize_data():
             "weaknesses": ["Madness", "Fire"],
             "damage_types": ["Madness", "Alchemical"],
             "difficulty_rating": 7,
-            "min_level": 10,
-            "max_level": 14,
+            "min_level": 13,
+            "max_level": 15,
             "recommended_strategies": [
                 "Consider the pre-combat deal carefully",
                 "Use madness-inducing attacks",
