@@ -112,6 +112,19 @@ function App() {
     }
   };
 
+  const handleFilterCharacters = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (filters.playstyle) params.append('playstyle', filters.playstyle);
+
+      const response = await fetch(`${API_BASE_URL}/api/filter-characters?${params}`);
+      const data = await response.json();
+      setCharacters(data.characters || []);
+    } catch (error) {
+      console.error('Error filtering characters:', error);
+    }
+  };
+
   const handleFilterCreatures = async () => {
     try {
       const params = new URLSearchParams();
