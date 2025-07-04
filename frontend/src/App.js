@@ -9,6 +9,7 @@ function App() {
   const [achievements, setAchievements] = useState([]);
   const [walkthroughs, setWalkthroughs] = useState([]);
   const [customBuilds, setCustomBuilds] = useState([]);
+  const [creatures, setCreatures] = useState([]);
   const [selectedBoss, setSelectedBoss] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [selectedBuild, setSelectedBuild] = useState(null);
