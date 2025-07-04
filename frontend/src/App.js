@@ -443,8 +443,7 @@ function App() {
 
   const WeaponSkillCard = ({ skill }) => (
     <div 
-      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
-      onClick={() => setSelectedWeaponSkill(skill)}
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700"
     >
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
