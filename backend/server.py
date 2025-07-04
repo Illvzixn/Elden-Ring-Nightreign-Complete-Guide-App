@@ -1695,6 +1695,328 @@ def initialize_data():
         }
     ]
     
+    # Initialize secrets
+    secrets = [
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Duchess Character Unlock",
+            "category": "Character Unlock",
+            "description": "Unlock the Duchess character by completing the Tricephalos expedition and obtaining the Old Pocketwatch from Gladius.",
+            "location": "Roundtable Hold",
+            "how_to_find": "Defeat Gladius in the Tricephalos expedition to obtain the Old Pocketwatch. Show it to the Priestess at the Roundtable Hold.",
+            "reward": "Duchess Character",
+            "difficulty": "Medium"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Revenant Character Unlock",
+            "category": "Character Unlock", 
+            "description": "Unlock the Revenant character after unlocking the Duchess. Purchase the Besmirched Frame at the Small Jar Bazaar and defeat the Revenant boss.",
+            "location": "Roundtable Hold",
+            "how_to_find": "After unlocking the Duchess, buy the Besmirched Frame for 1500 Murk and defeat the Revenant boss at the marked location near the sparring grounds.",
+            "reward": "Revenant Character",
+            "difficulty": "Hard"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "The Crater",
+            "category": "Location Secret",
+            "description": "A giant crater appears in the northern section of the map, allowing players to upgrade weapons to Legendary.",
+            "location": "Northern section of the map",
+            "how_to_find": "Travel to the eastern side of the map, locate the opening with lava flowing, and defeat the Magma Wyrm in the underground temple.",
+            "reward": "Special Smithing Table, Legendary Weapon Upgrades",
+            "difficulty": "Hard"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Mountaintop",
+            "category": "Location Secret",
+            "description": "A snowy terrain that grants the Favor of the Mountaintop buff, reducing frostbite damage and boosting attack.",
+            "location": "Northwestern section of the map",
+            "how_to_find": "Reach the area east of the crevice and use the Spectral Hawk to access the Mountaintop. Interact with blue crystals to gain the buff.",
+            "reward": "Favor of the Mountaintop, Dormant Power",
+            "difficulty": "Medium"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Rotted Woods",
+            "category": "Location Secret",
+            "description": "A land ravaged by Scarlet Rot that provides the Favor of the Forest buff, nullifying scarlet rot effects and increasing max HP.",
+            "location": "Southeastern region of Limveld",
+            "how_to_find": "Travel to the fort in the southwest, interact with the map to reveal the location of the secret, and reach the red flower atop a large tree.",
+            "reward": "Favor of the Forest, Max HP Increase",
+            "difficulty": "Medium"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Noklateo",
+            "category": "Location Secret",
+            "description": "A large structure with massive walls that holds the Favor of Noklateo, allowing players to rise from near-death once.",
+            "location": "Southwestern region of Limveld", 
+            "how_to_find": "Go to the center of Noklateo, defeat the Naturalborn of the Void, and access the small room inside the arena to obtain the favor.",
+            "reward": "Favor of Noklateo, Near-death Recovery",
+            "difficulty": "Very Hard"
+        }
+    ]
+    
+    # Initialize weapon skills
+    weapon_skills = [
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Alabaster Lord's Pull",
+            "fp_cost": 15,
+            "description": "Thrust the armament into the ground to create a gravity well, dealing damage and pulling enemies in.",
+            "effect": "Creates gravity well with area damage and enemy pull",
+            "usable_with": "Specific armaments",
+            "category": "Gravity",
+            "damage_type": "Physical + Gravity"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Ancient Lightning Spear",
+            "fp_cost": 24,
+            "description": "Imbue the armament with the ancient dragons' red lightning, then throw it as a spear.",
+            "effect": "Ranged lightning spear attack, can be charged for increased power",
+            "usable_with": "Specific armaments",
+            "category": "Lightning",
+            "damage_type": "Lightning"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Angel's Wings",
+            "fp_cost": 17,
+            "description": "Jump and imbue the wing-blade of the armament with light, then deliver a slashing attack.",
+            "effect": "Aerial light-imbued attack that impedes flask recovery",
+            "usable_with": "Specific armaments",
+            "category": "Holy",
+            "damage_type": "Physical + Holy"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Assassin's Gambit",
+            "fp_cost": 5,
+            "description": "Skill that masks the user's presence at the cost of a self-inflicted wound.",
+            "effect": "Near-invisibility and silenced footsteps",
+            "usable_with": "Small and medium straight swords, thrusting swords",
+            "category": "Stealth",
+            "damage_type": "Self-inflicted"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Barbaric Roar",
+            "fp_cost": 16,
+            "description": "Let loose a bestial roar to rally the spirit and increase attack power.",
+            "effect": "Increases attack power, strong attacks become savage combos",
+            "usable_with": "Melee armaments (excluding daggers, thrusting swords, and whips)",
+            "category": "Buff",
+            "damage_type": "Physical Enhancement"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Bloodblade Dance",
+            "fp_cost": 20,
+            "description": "Leap forward and perform a series of spinning blade attacks that build up blood loss.",
+            "effect": "Multi-hit spinning attack with blood loss buildup",
+            "usable_with": "Curved swords, katanas",
+            "category": "Blood",
+            "damage_type": "Physical + Bleed"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Carian Grandeur",
+            "fp_cost": 26,
+            "description": "Imbue the armament with glintstone magic to unleash a powerful magical shockwave.",
+            "effect": "Wide-range magical shockwave attack",
+            "usable_with": "Swords, greatswords",
+            "category": "Magic",
+            "damage_type": "Magic"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Flame of the Redmanes",
+            "fp_cost": 20,
+            "description": "Skill of the Redmane Knights. Create a surge of flames that deals fire damage.",
+            "effect": "Fire damage with high stance break potential",
+            "usable_with": "Various melee weapons",
+            "category": "Fire",
+            "damage_type": "Fire"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Hoarfrost Stomp",
+            "fp_cost": 10,
+            "description": "Stomp hard to create a trail of freezing mist that deals magic damage.",
+            "effect": "Creates freezing mist trail with frostbite buildup",
+            "usable_with": "Various weapons",
+            "category": "Frost",
+            "damage_type": "Magic + Frostbite"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Lightning Ram",
+            "fp_cost": 18,
+            "description": "Surround the armament with lightning and charge forward with tremendous force.",
+            "effect": "Lightning-enhanced charge attack",
+            "usable_with": "Heavy weapons",
+            "category": "Lightning",
+            "damage_type": "Physical + Lightning"
+        }
+    ]
+    
+    # Initialize weapon passive abilities
+    weapon_passives = [
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Add Holy to Weapon",
+            "category": "Damage Enhancement",
+            "description": "Infuses attacks with additional Holy damage.",
+            "effect": "+30 Holy damage to all attacks",
+            "compatible_characters": ["Guardian", "Revenant", "Wylder"],
+            "weapon_types": ["Swords", "Halberds", "Maces"],
+            "scaling": "Faith"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Add Magic to Weapon",
+            "category": "Damage Enhancement", 
+            "description": "Infuses attacks with additional Magic damage.",
+            "effect": "+30 Magic damage to all attacks",
+            "compatible_characters": ["Recluse", "Revenant", "Wylder"],
+            "weapon_types": ["Staves", "Swords", "Catalysts"],
+            "scaling": "Intelligence"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Attack Up when Wielding Two Armaments",
+            "category": "Damage Enhancement",
+            "description": "Boosts attack power when dual-wielding weapons.",
+            "effect": "+7% to +10% attack power with dual weapons",
+            "compatible_characters": ["Duchess", "Executor", "Raider"],
+            "weapon_types": ["Daggers", "Curved Swords", "Axes"],
+            "scaling": "Dexterity/Strength"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Improved Attack Power at Full HP",
+            "category": "Conditional Damage",
+            "description": "Increases attack power when health is full.",
+            "effect": "+7% to +14% attack power at full health",
+            "compatible_characters": ["Guardian", "Raider", "Wylder"],
+            "weapon_types": ["All weapons"],
+            "scaling": "Health dependent"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Improved Attack Power at Low HP",
+            "category": "Conditional Damage",
+            "description": "Increases attack power when health is low.",
+            "effect": "+7% to +21% attack power at low health",
+            "compatible_characters": ["Executor", "Duchess", "Ironeye"],
+            "weapon_types": ["All weapons"],
+            "scaling": "Health dependent"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Attacks Inflict Poison",
+            "category": "Status Infliction",
+            "description": "Adds poison buildup to attacks.",
+            "effect": "+23 poison buildup per attack",
+            "compatible_characters": ["Duchess", "Recluse", "Executor"],
+            "weapon_types": ["Daggers", "Whips", "Claws"],
+            "scaling": "Arcane"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Attacks Inflict Sleep",
+            "category": "Status Infliction",
+            "description": "Adds sleep buildup to attacks.",
+            "effect": "+18 to +30 sleep buildup per attack",
+            "compatible_characters": ["Recluse", "Revenant", "Duchess"],
+            "weapon_types": ["Staves", "Arrows", "Mist weapons"],
+            "scaling": "Intelligence/Arcane"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Continuous HP Recovery",
+            "category": "Health Management",
+            "description": "Gradually restores health over time.",
+            "effect": "+1 HP per second",
+            "compatible_characters": ["Guardian", "Revenant", "Wylder"],
+            "weapon_types": ["Sacred weapons", "Blessed armaments"],
+            "scaling": "Faith"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Defeating Enemies Restores HP",
+            "category": "Health Management",
+            "description": "Restores health upon defeating enemies.",
+            "effect": "+20 HP per enemy defeated",
+            "compatible_characters": ["Raider", "Executor", "Guardian"],
+            "weapon_types": ["All weapons"],
+            "scaling": "Kill dependent"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "HP Restoration Upon Attacks",
+            "category": "Health Management",
+            "description": "Restores health with each successful attack.",
+            "effect": "+3 to +6 HP per successful hit",
+            "compatible_characters": ["Executor", "Duchess", "Raider"],
+            "weapon_types": ["Fast weapons", "Multi-hit weapons"],
+            "scaling": "Hit frequency"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "FP Restoration Upon Attacks",
+            "category": "Resource Management",
+            "description": "Restores Focus Points with each successful attack.",
+            "effect": "+1 to +2 FP per successful hit",
+            "compatible_characters": ["Recluse", "Revenant", "Wylder"],
+            "weapon_types": ["Caster weapons", "Hybrid weapons"],
+            "scaling": "Hit frequency"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Critical Hit HP Restoration",
+            "category": "Critical Effects",
+            "description": "Restores health upon landing critical hits.",
+            "effect": "+10% HP restoration on critical hits",
+            "compatible_characters": ["Ironeye", "Executor", "Duchess"],
+            "weapon_types": ["Bows", "Daggers", "Rapiers"],
+            "scaling": "Critical hit rate"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Critical Hit FP Restoration",
+            "category": "Critical Effects",
+            "description": "Restores FP upon landing critical hits.",
+            "effect": "+10% FP restoration on critical hits",
+            "compatible_characters": ["Ironeye", "Recluse", "Executor"],
+            "weapon_types": ["Bows", "Staves", "Precision weapons"],
+            "scaling": "Critical hit rate"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Dmg Negation Up While Casting Spells",
+            "category": "Defensive Enhancement",
+            "description": "Reduces damage taken while casting spells.",
+            "effect": "+24% to +30% damage negation during casting",
+            "compatible_characters": ["Recluse", "Revenant"],
+            "weapon_types": ["Staves", "Catalysts"],
+            "scaling": "Spell usage"
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Guard Counters Activate Holy Attacks",
+            "category": "Special Effects",
+            "description": "Triggers Holy damage upon successful guard counters.",
+            "effect": "Holy damage burst on guard counter",
+            "compatible_characters": ["Guardian", "Wylder"],
+            "weapon_types": ["Shields", "Defensive weapons"],
+            "scaling": "Faith"
+        }
+    ]
+    
     # Clear existing data and insert new
     bosses_collection.delete_many({})
     characters_collection.delete_many({})
