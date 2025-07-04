@@ -15,6 +15,7 @@ function App() {
   const [selectedBuild, setSelectedBuild] = useState(null);
   const [selectedAchievement, setSelectedAchievement] = useState(null);
   const [selectedWalkthrough, setSelectedWalkthrough] = useState(null);
+  const [selectedCreature, setSelectedCreature] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
