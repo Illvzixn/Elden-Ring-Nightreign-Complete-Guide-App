@@ -320,12 +320,16 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         self.assertGreaterEqual(len(data["builds"]), 16, "There should be at least 16 builds")
         print(f"✅ Build count validation passed - Found {len(data['builds'])} builds (>= 16)")
         
-        # Check number of achievements (should be 15)
+        # Check number of achievements (should be 37)
         response = requests.get(f"{self.base_url}/api/achievements")
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertEqual(len(data["achievements"]), 15, "There should be exactly 15 achievements")
-        print("✅ Achievement count validation passed - Found exactly 15 achievements")
+        self.assertEqual(len(data["achievements"]), 37, "There should be exactly 37 achievements")
+        print("✅ Achievement count validation passed - Found exactly 37 achievements")
+        
+        # Verify achievements are properly ranked from 1 to 37
+        ranks = [achievement["rank"] for achievement in data["achievements"]]
+        self.assertEqual(sorted(ranks), list(range(1, 38)), "Achievement ranks should be 1-37")
         
     def test_17_error_handling(self):
         """Test error handling for non-existent resources"""
