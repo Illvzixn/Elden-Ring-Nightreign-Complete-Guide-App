@@ -2026,6 +2026,9 @@ def initialize_data():
     user_ratings_collection.delete_many({})
     custom_builds_collection.delete_many({})
     creatures_collection.delete_many({})
+    secrets_collection.delete_many({})
+    weapon_skills_collection.delete_many({})
+    weapon_passives_collection.delete_many({})
     
     bosses_collection.insert_many(bosses)
     characters_collection.insert_many(characters)
@@ -2033,6 +2036,9 @@ def initialize_data():
     achievements_collection.insert_many(achievements)
     walkthroughs_collection.insert_many(walkthroughs)
     creatures_collection.insert_many(creatures)
+    secrets_collection.insert_many(secrets)
+    weapon_skills_collection.insert_many(weapon_skills)
+    weapon_passives_collection.insert_many(weapon_passives)
     
     # Create text indices for search
     bosses_collection.create_index([("name", "text"), ("description", "text")])
