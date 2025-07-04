@@ -400,6 +400,126 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         data = response.json()
         self.assertIn("creatures", data)
         print(f"✅ Filter creatures by weakness test passed - Found {len(data['creatures'])} creatures weak to Holy")
+        
+    def test_21_get_secrets(self):
+        """Test getting all secrets"""
+        print("\n🔍 Testing get all secrets...")
+        response = requests.get(f"{self.base_url}/api/secrets")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("secrets", data)
+        self.assertIsInstance(data["secrets"], list)
+        self.assertEqual(len(data["secrets"]), 6, "Should have exactly 6 secrets")
+        
+        # Store a secret ID for later tests
+        self.secret_id = data["secrets"][0]["id"]
+        print(f"✅ Get secrets test passed - Found {len(data['secrets'])} secrets")
+        print(f"   First secret: {data['secrets'][0]['name']}")
+        
+        # Verify secret categories
+        categories = set()
+        for secret in data["secrets"]:
+            categories.add(secret["category"])
+            # Verify required fields
+            self.assertIn("name", secret)
+            self.assertIn("description", secret)
+            self.assertIn("location", secret)
+            self.assertIn("how_to_find", secret)
+            self.assertIn("reward", secret)
+            self.assertIn("difficulty", secret)
+        
+        print(f"   Secret categories: {', '.join(categories)}")
+        
+        # Check if specific secrets are present
+        secret_names = [secret["name"] for secret in data["secrets"]]
+        expected_secrets = [
+            "Duchess Character Unlock", 
+            "Revenant Character Unlock",
+            "The Crater",
+            "Mountaintop",
+            "Rotted Woods",
+            "Noklateo"
+        ]
+        
+        for expected in expected_secrets:
+            self.assertIn(expected, secret_names, f"Missing expected secret: {expected}")
+        
+        print("✅ All expected secrets are present")
+        
+    def test_22_get_weapon_skills(self):
+        """Test getting all weapon skills"""
+        print("\n🔍 Testing get all weapon skills...")
+        response = requests.get(f"{self.base_url}/api/weapon-skills")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("weapon_skills", data)
+        self.assertIsInstance(data["weapon_skills"], list)
+        self.assertEqual(len(data["weapon_skills"]), 10, "Should have exactly 10 weapon skills")
+        
+        # Store a weapon skill ID for later tests
+        self.weapon_skill_id = data["weapon_skills"][0]["id"]
+        print(f"✅ Get weapon skills test passed - Found {len(data['weapon_skills'])} weapon skills")
+        print(f"   First weapon skill: {data['weapon_skills'][0]['name']}")
+        
+        # Verify weapon skill categories
+        categories = set()
+        for skill in data["weapon_skills"]:
+            categories.add(skill["category"])
+            # Verify required fields
+            self.assertIn("name", skill)
+            self.assertIn("fp_cost", skill)
+            self.assertIn("description", skill)
+            self.assertIn("effect", skill)
+            self.assertIn("category", skill)
+            self.assertIn("damage_type", skill)
+        
+        print(f"   Weapon skill categories: {', '.join(categories)}")
+        
+    def test_23_get_weapon_passives(self):
+        """Test getting all weapon passives"""
+        print("\n🔍 Testing get all weapon passives...")
+        response = requests.get(f"{self.base_url}/api/weapon-passives")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("weapon_passives", data)
+        self.assertIsInstance(data["weapon_passives"], list)
+        self.assertEqual(len(data["weapon_passives"]), 15, "Should have exactly 15 weapon passives")
+        
+        # Store a weapon passive ID for later tests
+        self.weapon_passive_id = data["weapon_passives"][0]["id"]
+        print(f"✅ Get weapon passives test passed - Found {len(data['weapon_passives'])} weapon passives")
+        print(f"   First weapon passive: {data['weapon_passives'][0]['name']}")
+        
+        # Verify weapon passive categories
+        categories = set()
+        for passive in data["weapon_passives"]:
+            categories.add(passive["category"])
+            # Verify required fields
+            self.assertIn("name", passive)
+            self.assertIn("description", passive)
+            self.assertIn("effect", passive)
+            self.assertIn("category", passive)
+            self.assertIn("compatible_characters", passive)
+            self.assertIn("weapon_types", passive)
+            self.assertIn("scaling", passive)
+        
+        print(f"   Weapon passive categories: {', '.join(categories)}")
+        
+        # Check if search includes new content types
+        print("\n🔍 Testing search with new content types...")
+        search_term = "holy"  # Should match items in all categories
+        response = requests.get(f"{self.base_url}/api/search?query={search_term}")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        
+        self.assertIn("secrets", data)
+        self.assertIn("weapon_skills", data)
+        self.assertIn("weapon_passives", data)
+        
+        print(f"✅ Search with new content types test passed")
+        print(f"   Found {len(data['secrets'])} secrets matching '{search_term}'")
+        print(f"   Found {len(data['weapon_skills'])} weapon skills matching '{search_term}'")
+        print(f"   Found {len(data['weapon_passives'])} weapon passives matching '{search_term}'")
 
 if __name__ == "__main__":
     # Run the tests
