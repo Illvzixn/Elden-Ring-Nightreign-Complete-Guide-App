@@ -331,6 +331,31 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         ranks = [achievement["rank"] for achievement in data["achievements"]]
         self.assertEqual(sorted(ranks), list(range(1, 38)), "Achievement ranks should be 1-37")
         
+    def test_17_error_handling(self):
+        """Test error handling for invalid requests"""
+        print("\n🔍 Testing error handling...")
+        
+        # Test invalid boss ID
+        response = requests.get(f"{self.base_url}/api/bosses/invalid-id")
+        self.assertEqual(response.status_code, 404)
+        data = response.json()
+        self.assertIn("detail", data)
+        print("✅ Invalid boss ID test passed - Returned 404 with error detail")
+        
+        # Test invalid character ID
+        response = requests.get(f"{self.base_url}/api/characters/invalid-id")
+        self.assertEqual(response.status_code, 404)
+        data = response.json()
+        self.assertIn("detail", data)
+        print("✅ Invalid character ID test passed - Returned 404 with error detail")
+        
+        # Test invalid build ID
+        response = requests.get(f"{self.base_url}/api/builds/invalid-id")
+        self.assertEqual(response.status_code, 404)
+        data = response.json()
+        self.assertIn("detail", data)
+        print("✅ Invalid build ID test passed - Returned 404 with error detail")
+        
     def test_18_get_creatures(self):
         """Test getting all creatures"""
         print("\n🔍 Testing get all creatures...")
