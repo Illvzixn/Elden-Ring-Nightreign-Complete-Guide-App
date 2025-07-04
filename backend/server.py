@@ -128,8 +128,8 @@ def initialize_data():
             "weaknesses": ["Fire"],
             "damage_types": ["Fog", "Fire"],
             "difficulty_rating": 8,
-            "min_level": 9,
-            "max_level": 13,
+            "min_level": 13,
+            "max_level": 15,
             "recommended_strategies": [
                 "Use fire attacks to clear fog",
                 "Stay grouped to avoid getting separated",
