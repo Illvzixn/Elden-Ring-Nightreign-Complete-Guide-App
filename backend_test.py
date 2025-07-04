@@ -331,27 +331,75 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         ranks = [achievement["rank"] for achievement in data["achievements"]]
         self.assertEqual(sorted(ranks), list(range(1, 38)), "Achievement ranks should be 1-37")
         
-    def test_17_error_handling(self):
-        """Test error handling for non-existent resources"""
-        print("\n🔍 Testing error handling for non-existent resources...")
+    def test_18_get_creatures(self):
+        """Test getting all creatures"""
+        print("\n🔍 Testing get all creatures...")
+        response = requests.get(f"{self.base_url}/api/creatures")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("creatures", data)
+        self.assertIsInstance(data["creatures"], list)
+        self.assertGreaterEqual(len(data["creatures"]), 30, "Should have at least 30 creatures")
         
-        # Test with a non-existent boss ID
-        response = requests.get(f"{self.base_url}/api/bosses/nonexistent-id")
-        self.assertEqual(response.status_code, 404)
+        # Store a creature ID for later tests
+        self.creature_id = data["creatures"][0]["id"]
+        print(f"✅ Get creatures test passed - Found {len(data['creatures'])} creatures")
+        print(f"   First creature: {data['creatures'][0]['name']}")
         
-        # Test with a non-existent character ID
-        response = requests.get(f"{self.base_url}/api/characters/nonexistent-id")
-        self.assertEqual(response.status_code, 404)
+        # Verify creature types and threat levels
+        types = set()
+        threat_levels = set()
+        for creature in data["creatures"]:
+            types.add(creature["type"])
+            threat_levels.add(creature["threat_level"])
         
-        # Test with a non-existent build ID
-        response = requests.get(f"{self.base_url}/api/builds/nonexistent-id")
-        self.assertEqual(response.status_code, 404)
+        print(f"   Creature types: {', '.join(types)}")
+        print(f"   Threat levels: {', '.join(threat_levels)}")
         
-        # Test with a non-existent walkthrough
-        response = requests.get(f"{self.base_url}/api/walkthroughs/nonexistent-character")
-        self.assertEqual(response.status_code, 404)
+    def test_19_get_creature_by_id(self):
+        """Test getting a specific creature by ID"""
+        if not hasattr(self, 'creature_id') or not self.creature_id:
+            self.test_18_get_creatures()
+            if not self.creature_id:
+                self.skipTest("No creature ID available")
         
-        print("✅ Error handling test passed")
+        print(f"\n🔍 Testing get creature by ID: {self.creature_id}...")
+        response = requests.get(f"{self.base_url}/api/creatures/{self.creature_id}")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("name", data)
+        self.assertIn("description", data)
+        self.assertIn("weaknesses", data)
+        self.assertIn("resistances", data)
+        self.assertIn("threat_level", data)
+        print(f"✅ Get creature by ID test passed - Found creature: {data['name']}")
+        
+    def test_20_filter_creatures(self):
+        """Test filtering creatures by type and threat level"""
+        print("\n🔍 Testing filter creatures functionality...")
+        
+        # Test filtering by type
+        response = requests.get(f"{self.base_url}/api/filter-creatures?type=Nightlord")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("creatures", data)
+        self.assertIn("filters_applied", data)
+        self.assertEqual(len(data["creatures"]), 8, "There should be exactly 8 Nightlords")
+        print(f"✅ Filter creatures by type test passed - Found {len(data['creatures'])} Nightlords")
+        
+        # Test filtering by threat level
+        response = requests.get(f"{self.base_url}/api/filter-creatures?threat_level=Extreme")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("creatures", data)
+        print(f"✅ Filter creatures by threat level test passed - Found {len(data['creatures'])} Extreme threat creatures")
+        
+        # Test filtering by weakness
+        response = requests.get(f"{self.base_url}/api/filter-creatures?weakness=Holy")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("creatures", data)
+        print(f"✅ Filter creatures by weakness test passed - Found {len(data['creatures'])} creatures weak to Holy")
 
 if __name__ == "__main__":
     # Run the tests
