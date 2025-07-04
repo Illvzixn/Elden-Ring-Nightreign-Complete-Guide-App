@@ -123,7 +123,63 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         self.assertIn("talismans", data)
         print(f"✅ Get build by ID test passed - Found build: {data['name']}")
 
-    def test_08_boss_recommendations(self):
+    def test_08_get_achievements(self):
+        """Test getting all achievements"""
+        print("\n🔍 Testing get all achievements...")
+        response = requests.get(f"{self.base_url}/api/achievements")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("achievements", data)
+        self.assertIsInstance(data["achievements"], list)
+        self.assertGreaterEqual(len(data["achievements"]), 15, "Should have at least 15 achievements")
+        
+        # Store an achievement ID for later tests
+        self.achievement_id = data["achievements"][0]["id"]
+        print(f"✅ Get achievements test passed - Found {len(data['achievements'])} achievements")
+        print(f"   First achievement: {data['achievements'][0]['name']}")
+        
+        # Verify achievement categories and difficulty ratings
+        categories = set()
+        difficulties = set()
+        for achievement in data["achievements"]:
+            categories.add(achievement["category"])
+            difficulties.add(achievement["difficulty"])
+        
+        print(f"   Achievement categories: {', '.join(categories)}")
+        print(f"   Achievement difficulties: {', '.join(difficulties)}")
+        
+    def test_09_get_walkthroughs(self):
+        """Test getting all walkthroughs"""
+        print("\n🔍 Testing get all walkthroughs...")
+        response = requests.get(f"{self.base_url}/api/walkthroughs")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("walkthroughs", data)
+        self.assertIsInstance(data["walkthroughs"], list)
+        self.assertGreater(len(data["walkthroughs"]), 0)
+        
+        # Store a walkthrough ID for later tests
+        if data["walkthroughs"]:
+            self.walkthrough_id = data["walkthroughs"][0]["character"]
+        print(f"✅ Get walkthroughs test passed - Found {len(data['walkthroughs'])} walkthroughs")
+        if data["walkthroughs"]:
+            print(f"   First walkthrough: {data['walkthroughs'][0]['title']}")
+            
+    def test_10_get_walkthrough_by_character(self):
+        """Test getting a specific walkthrough by character name"""
+        if not self.walkthrough_id:
+            self.skipTest("No walkthrough ID available")
+        
+        print(f"\n🔍 Testing get walkthrough by character: {self.walkthrough_id}...")
+        response = requests.get(f"{self.base_url}/api/walkthroughs/{self.walkthrough_id}")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("title", data)
+        self.assertIn("description", data)
+        self.assertIn("chapters", data)
+        print(f"✅ Get walkthrough by character test passed - Found walkthrough: {data['title']}")
+        
+    def test_11_boss_recommendations(self):
         """Test getting boss recommendations"""
         if not self.boss_id:
             self.skipTest("No boss ID available")
