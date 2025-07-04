@@ -55,14 +55,17 @@ function App() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [bossesRes, charactersRes, buildsRes, achievementsRes, walkthroughsRes, customBuildsRes, creaturesRes] = await Promise.all([
+      const [bossesRes, charactersRes, buildsRes, achievementsRes, walkthroughsRes, customBuildsRes, creaturesRes, secretsRes, weaponSkillsRes, weaponPassivesRes] = await Promise.all([
         fetch(`${API_BASE_URL}/api/bosses`),
         fetch(`${API_BASE_URL}/api/characters`),
         fetch(`${API_BASE_URL}/api/builds`),
         fetch(`${API_BASE_URL}/api/achievements`),
         fetch(`${API_BASE_URL}/api/walkthroughs`),
         fetch(`${API_BASE_URL}/api/custom-builds`),
-        fetch(`${API_BASE_URL}/api/creatures`)
+        fetch(`${API_BASE_URL}/api/creatures`),
+        fetch(`${API_BASE_URL}/api/secrets`),
+        fetch(`${API_BASE_URL}/api/weapon-skills`),
+        fetch(`${API_BASE_URL}/api/weapon-passives`)
       ]);
 
       const bossesData = await bossesRes.json();
