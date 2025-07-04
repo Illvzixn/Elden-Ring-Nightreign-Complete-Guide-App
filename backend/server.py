@@ -68,8 +68,8 @@ def initialize_data():
             "weaknesses": ["Lightning"],
             "damage_types": ["Water", "Sleep"],
             "difficulty_rating": 5,
-            "min_level": 3,
-            "max_level": 7,
+            "min_level": 13,
+            "max_level": 15,
             "recommended_strategies": [
                 "Utilize lightning attacks to exploit weaknesses",
                 "Stay mobile to avoid water-based area attacks",
