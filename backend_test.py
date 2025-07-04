@@ -193,23 +193,141 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         self.assertIn("recommended_builds", data)
         print(f"✅ Boss recommendations test passed - Found {len(data['recommended_characters'])} characters and {len(data['recommended_builds'])} builds")
 
-    def test_09_search_functionality(self):
+    def test_12_search_functionality(self):
         """Test the search functionality"""
         print("\n🔍 Testing search functionality...")
         # Try searching for a term that should exist
-        search_term = "Titan"  # Should match "Colossal Titan" build
-        try:
-            response = requests.get(f"{self.base_url}/api/search?query={search_term}")
-            
-            # The search endpoint might not be fully implemented yet, so we'll check if it returns 200
-            # but won't fail the test if it doesn't return results
-            self.assertEqual(response.status_code, 200)
-            print(f"✅ Search functionality test passed with status code {response.status_code}")
-        except Exception as e:
-            print(f"⚠️ Search functionality test warning: {str(e)}")
-            print("   This is not a critical failure as search might not be fully implemented")
-
-    def test_10_error_handling(self):
+        search_term = "Night"  # Should match multiple items
+        response = requests.get(f"{self.base_url}/api/search?query={search_term}")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("query", data)
+        self.assertIn("bosses", data)
+        self.assertIn("characters", data)
+        self.assertIn("builds", data)
+        self.assertIn("achievements", data)
+        self.assertIn("total_results", data)
+        print(f"✅ Search functionality test passed - Found {data['total_results']} results for '{search_term}'")
+        
+    def test_13_filter_bosses(self):
+        """Test filtering bosses by difficulty and other criteria"""
+        print("\n🔍 Testing filter bosses functionality...")
+        
+        # Test filtering by difficulty
+        response = requests.get(f"{self.base_url}/api/filter-bosses?difficulty=hard")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("bosses", data)
+        self.assertIn("filters_applied", data)
+        print(f"✅ Filter bosses by difficulty test passed - Found {len(data['bosses'])} hard bosses")
+        
+        # Test filtering by weakness
+        response = requests.get(f"{self.base_url}/api/filter-bosses?weakness=Holy")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("bosses", data)
+        print(f"✅ Filter bosses by weakness test passed - Found {len(data['bosses'])} bosses weak to Holy")
+        
+        # Test filtering by level range
+        response = requests.get(f"{self.base_url}/api/filter-bosses?min_level=15&max_level=25")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("bosses", data)
+        print(f"✅ Filter bosses by level range test passed - Found {len(data['bosses'])} bosses in level range 15-25")
+        
+    def test_14_filter_characters(self):
+        """Test filtering characters by playstyle"""
+        print("\n🔍 Testing filter characters functionality...")
+        
+        # Test filtering by playstyle
+        response = requests.get(f"{self.base_url}/api/filter-characters?playstyle=Tank")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("characters", data)
+        self.assertIn("filters_applied", data)
+        print(f"✅ Filter characters by playstyle test passed - Found {len(data['characters'])} Tank characters")
+        
+    def test_15_custom_build_creation(self):
+        """Test creating a custom build"""
+        print("\n🔍 Testing custom build creation...")
+        
+        # Create a test build
+        test_build = {
+            "name": f"Test Build {uuid.uuid4()}",
+            "character": "Wylder",
+            "type": "Test",
+            "description": "A test build created by automated testing",
+            "primary_weapon": "Test Sword",
+            "secondary_weapon": "Test Shield",
+            "strategy": "Test strategy"
+        }
+        
+        response = requests.post(f"{self.base_url}/api/custom-build", json=test_build)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("message", data)
+        self.assertIn("build_id", data)
+        print(f"✅ Custom build creation test passed - Created build with ID: {data['build_id']}")
+        
+        # Verify the build was created by getting all custom builds
+        response = requests.get(f"{self.base_url}/api/custom-builds")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("custom_builds", data)
+        print(f"✅ Custom builds retrieval test passed - Found {len(data['custom_builds'])} custom builds")
+        
+    def test_16_data_validation(self):
+        """Test data validation for bosses and characters"""
+        print("\n🔍 Testing data validation...")
+        
+        # Check boss level ranges
+        response = requests.get(f"{self.base_url}/api/bosses")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        
+        for boss in data["bosses"]:
+            self.assertLessEqual(boss["max_level"], 25, f"Boss {boss['name']} has max_level > 25")
+            self.assertGreaterEqual(boss["min_level"], 1, f"Boss {boss['name']} has min_level < 1")
+        print("✅ Boss level range validation passed - All bosses have correct level ranges (1-25)")
+        
+        # Check character max levels
+        response = requests.get(f"{self.base_url}/api/characters")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        
+        for character in data["characters"]:
+            self.assertEqual(character["max_level"], 15, f"Character {character['name']} has max_level != 15")
+        print("✅ Character max level validation passed - All characters have max_level = 15")
+        
+        # Check number of bosses (should be 8)
+        response = requests.get(f"{self.base_url}/api/bosses")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data["bosses"]), 8, "There should be exactly 8 bosses")
+        print("✅ Boss count validation passed - Found exactly 8 bosses")
+        
+        # Check number of characters (should be 8)
+        response = requests.get(f"{self.base_url}/api/characters")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data["characters"]), 8, "There should be exactly 8 characters")
+        print("✅ Character count validation passed - Found exactly 8 characters")
+        
+        # Check number of builds (should be at least 16)
+        response = requests.get(f"{self.base_url}/api/builds")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertGreaterEqual(len(data["builds"]), 16, "There should be at least 16 builds")
+        print(f"✅ Build count validation passed - Found {len(data['builds'])} builds (>= 16)")
+        
+        # Check number of achievements (should be 15)
+        response = requests.get(f"{self.base_url}/api/achievements")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data["achievements"]), 15, "There should be exactly 15 achievements")
+        print("✅ Achievement count validation passed - Found exactly 15 achievements")
+        
+    def test_17_error_handling(self):
         """Test error handling for non-existent resources"""
         print("\n🔍 Testing error handling for non-existent resources...")
         
@@ -223,6 +341,10 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         
         # Test with a non-existent build ID
         response = requests.get(f"{self.base_url}/api/builds/nonexistent-id")
+        self.assertEqual(response.status_code, 404)
+        
+        # Test with a non-existent walkthrough
+        response = requests.get(f"{self.base_url}/api/walkthroughs/nonexistent-character")
         self.assertEqual(response.status_code, 404)
         
         print("✅ Error handling test passed")
