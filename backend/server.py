@@ -108,8 +108,8 @@ def initialize_data():
             "weaknesses": ["Poison"],
             "damage_types": ["Lightning", "Physical"],
             "difficulty_rating": 7,
-            "min_level": 7,
-            "max_level": 11,
+            "min_level": 13,
+            "max_level": 15,
             "recommended_strategies": [
                 "Use poison attacks but beware of vomit purge",
                 "Attack from the sides to avoid jaw attacks",
