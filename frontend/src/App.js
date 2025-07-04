@@ -1418,6 +1418,39 @@ function App() {
             </div>
           </div>
         )}
+
+        {activeTab === 'secrets' && (
+          <div>
+            <h2 className="text-3xl font-bold mb-8">Secrets ({secrets.length})</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {secrets.map((secret) => (
+                <SecretCard key={secret.id} secret={secret} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'weapon-skills' && (
+          <div>
+            <h2 className="text-3xl font-bold mb-8">Weapon Skills ({weaponSkills.length})</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {weaponSkills.map((skill) => (
+                <WeaponSkillCard key={skill.id} skill={skill} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'weapon-passives' && (
+          <div>
+            <h2 className="text-3xl font-bold mb-8">Weapon Passive Abilities ({weaponPassives.length})</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {weaponPassives.map((passive) => (
+                <WeaponPassiveCard key={passive.id} passive={passive} />
+              ))}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Modals */}
