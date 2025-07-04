@@ -168,7 +168,7 @@ def initialize_data():
             "weaknesses": ["Lightning"],
             "damage_types": ["Dark", "Physical"],
             "difficulty_rating": 9,
-            "min_level": 12,
+            "min_level": 13,
             "max_level": 15,
             "recommended_strategies": [
                 "Use lightning attacks for maximum damage",
