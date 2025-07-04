@@ -2212,6 +2212,36 @@ async def search(query: str):
             {"_id": 0}
         ))
         
+        secret_results = list(secrets_collection.find(
+            {"$or": [
+                {"name": {"$regex": query, "$options": "i"}},
+                {"description": {"$regex": query, "$options": "i"}},
+                {"category": {"$regex": query, "$options": "i"}},
+                {"location": {"$regex": query, "$options": "i"}}
+            ]}, 
+            {"_id": 0}
+        ))
+        
+        weapon_skill_results = list(weapon_skills_collection.find(
+            {"$or": [
+                {"name": {"$regex": query, "$options": "i"}},
+                {"description": {"$regex": query, "$options": "i"}},
+                {"category": {"$regex": query, "$options": "i"}},
+                {"usable_with": {"$regex": query, "$options": "i"}}
+            ]}, 
+            {"_id": 0}
+        ))
+        
+        weapon_passive_results = list(weapon_passives_collection.find(
+            {"$or": [
+                {"name": {"$regex": query, "$options": "i"}},
+                {"description": {"$regex": query, "$options": "i"}},
+                {"category": {"$regex": query, "$options": "i"}},
+                {"compatible_characters": {"$regex": query, "$options": "i"}}
+            ]}, 
+            {"_id": 0}
+        ))
+        
         return {
             "query": query,
             "bosses": boss_results,
@@ -2219,7 +2249,10 @@ async def search(query: str):
             "builds": build_results,
             "achievements": achievement_results,
             "creatures": creature_results,
-            "total_results": len(boss_results) + len(character_results) + len(build_results) + len(achievement_results) + len(creature_results)
+            "secrets": secret_results,
+            "weapon_skills": weapon_skill_results,
+            "weapon_passives": weapon_passive_results,
+            "total_results": len(boss_results) + len(character_results) + len(build_results) + len(achievement_results) + len(creature_results) + len(secret_results) + len(weapon_skill_results) + len(weapon_passive_results)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}")
