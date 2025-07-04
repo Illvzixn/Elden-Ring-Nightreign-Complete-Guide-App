@@ -1460,6 +1460,9 @@ function App() {
       {selectedAchievement && <AchievementDetailModal />}
       {selectedWalkthrough && <WalkthroughDetailModal />}
       {selectedCreature && <CreatureDetailModal />}
+      {selectedSecret && <SecretDetailModal />}
+      {selectedWeaponSkill && <WeaponSkillDetailModal />}
+      {selectedWeaponPassive && <WeaponPassiveDetailModal />}
       {showCustomBuildForm && <CustomBuildForm />}
     </div>
   );
