@@ -19,6 +19,9 @@ function App() {
   const [selectedAchievement, setSelectedAchievement] = useState(null);
   const [selectedWalkthrough, setSelectedWalkthrough] = useState(null);
   const [selectedCreature, setSelectedCreature] = useState(null);
+  const [selectedSecret, setSelectedSecret] = useState(null);
+  const [selectedWeaponSkill, setSelectedWeaponSkill] = useState(null);
+  const [selectedWeaponPassive, setSelectedWeaponPassive] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
