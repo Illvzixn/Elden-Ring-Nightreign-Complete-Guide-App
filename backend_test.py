@@ -421,6 +421,12 @@ if __name__ == "__main__":
     test_suite.addTest(EldenRingNightReignAPITest('test_15_custom_build_creation'))
     test_suite.addTest(EldenRingNightReignAPITest('test_16_data_validation'))
     test_suite.addTest(EldenRingNightReignAPITest('test_17_error_handling'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_18_get_creatures'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_19_get_creature_by_id'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_20_filter_creatures'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_21_get_secrets'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_22_get_weapon_skills'))
+    test_suite.addTest(EldenRingNightReignAPITest('test_23_get_weapon_passives'))
     
     runner = unittest.TextTestRunner()
     result = runner.run(test_suite)
