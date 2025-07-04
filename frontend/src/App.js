@@ -308,7 +308,46 @@ function App() {
     </div>
   );
 
-  const AchievementCard = ({ achievement }) => (
+  const getThreatColor = (level) => {
+    switch (level) {
+      case 'Ultimate': return 'text-red-600';
+      case 'Extreme': return 'text-red-500';
+      case 'High': return 'text-orange-500';
+      case 'Medium': return 'text-yellow-500';
+      default: return 'text-green-500';
+    }
+  };
+
+  const CreatureCard = ({ creature }) => (
+    <div 
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
+      onClick={() => setSelectedCreature(creature)}
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-bold text-white">{creature.name}</h3>
+          <span className={`text-sm font-bold ${getThreatColor(creature.threat_level)}`}>
+            {creature.threat_level}
+          </span>
+        </div>
+        <p className="text-gray-300 text-sm mb-3">{creature.description}</p>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Type:</span>
+            <span className="text-white text-sm">{creature.type}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Location:</span>
+            <span className="text-blue-400 text-sm text-right">{creature.location}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Weaknesses:</span>
+            <span className="text-yellow-400 text-sm">{creature.weaknesses.join(', ')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
     <div 
       className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
       onClick={() => setSelectedAchievement(achievement)}
