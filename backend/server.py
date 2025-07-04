@@ -1665,6 +1665,30 @@ def initialize_data():
             "damage_types": ["Physical", "Dark"],
             "threat_level": "Low",
             "notes": "Required for Duchess's remembrance quest. Guard Weathervane's Words."
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Spectral Merchant",
+            "type": "Special Enemy",
+            "description": "Ghostly merchant found in Roundtable Hold",
+            "location": "Roundtable Hold",
+            "weaknesses": ["Holy", "Exorcism"],
+            "resistances": ["Physical", "Spectral"],
+            "damage_types": ["Spectral", "Curse"],
+            "threat_level": "Medium",
+            "notes": "Required for Guardian's remembrance quest. Must be defeated after cutscene."
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Scale-Bearing Merchant",
+            "type": "NPC Enemy",
+            "description": "Merchant selling valuable tomes for high prices",
+            "location": "Limveld",
+            "weaknesses": ["None"],
+            "resistances": ["Economic"],
+            "damage_types": ["Economic Drain"],
+            "threat_level": "Low",
+            "notes": "Required for Guardian's remembrance quest. Sells Third Volume for 10,000 Runes."
         }
     ]
     
