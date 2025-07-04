@@ -417,6 +417,81 @@ function App() {
     </div>
   );
 
+  const SecretCard = ({ secret }) => (
+    <div 
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
+      onClick={() => setSelectedSecret(secret)}
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-bold text-white">{secret.name}</h3>
+          <span className="text-sm font-bold text-purple-400">{secret.category}</span>
+        </div>
+        <p className="text-gray-300 text-sm mb-3">{secret.description}</p>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Location:</span>
+            <span className="text-blue-400 text-sm">{secret.location}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Difficulty:</span>
+            <span className="text-orange-400 text-sm">{secret.difficulty}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const WeaponSkillCard = ({ skill }) => (
+    <div 
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
+      onClick={() => setSelectedWeaponSkill(skill)}
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-bold text-white">{skill.name}</h3>
+          <span className="text-sm font-bold text-blue-400">{skill.fp_cost} FP</span>
+        </div>
+        <p className="text-gray-300 text-sm mb-3">{skill.description}</p>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Category:</span>
+            <span className="text-white text-sm">{skill.category}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Damage Type:</span>
+            <span className="text-red-400 text-sm">{skill.damage_type}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const WeaponPassiveCard = ({ passive }) => (
+    <div 
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform hover:scale-105 border border-gray-700"
+      onClick={() => setSelectedWeaponPassive(passive)}
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-bold text-white">{passive.name}</h3>
+          <span className="text-sm font-bold text-green-400">{passive.category}</span>
+        </div>
+        <p className="text-gray-300 text-sm mb-3">{passive.description}</p>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Effect:</span>
+            <span className="text-yellow-400 text-sm">{passive.effect}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-purple-400 text-sm">Compatible Characters:</span>
+            <span className="text-blue-400 text-sm">{passive.compatible_characters.slice(0, 2).join(', ')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const SearchResults = () => (
     <div className="bg-gray-800 rounded-lg p-6 mb-6">
       <h3 className="text-xl font-bold text-white mb-4">
