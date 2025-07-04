@@ -32,6 +32,9 @@ walkthroughs_collection = db.walkthroughs
 user_ratings_collection = db.user_ratings
 custom_builds_collection = db.custom_builds
 creatures_collection = db.creatures
+secrets_collection = db.secrets
+weapon_skills_collection = db.weapon_skills
+weapon_passives_collection = db.weapon_passives
 
 # Sample data initialization
 def initialize_data():
