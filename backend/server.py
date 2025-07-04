@@ -2122,6 +2122,42 @@ async def get_creature(creature_id: str):
         raise HTTPException(status_code=404, detail="Creature not found")
     return creature
 
+@app.get("/api/secrets")
+async def get_secrets():
+    secrets = list(secrets_collection.find({}, {"_id": 0}))
+    return {"secrets": secrets}
+
+@app.get("/api/secrets/{secret_id}")
+async def get_secret(secret_id: str):
+    secret = secrets_collection.find_one({"id": secret_id}, {"_id": 0})
+    if not secret:
+        raise HTTPException(status_code=404, detail="Secret not found")
+    return secret
+
+@app.get("/api/weapon-skills")
+async def get_weapon_skills():
+    weapon_skills = list(weapon_skills_collection.find({}, {"_id": 0}))
+    return {"weapon_skills": weapon_skills}
+
+@app.get("/api/weapon-skills/{skill_id}")
+async def get_weapon_skill(skill_id: str):
+    skill = weapon_skills_collection.find_one({"id": skill_id}, {"_id": 0})
+    if not skill:
+        raise HTTPException(status_code=404, detail="Weapon skill not found")
+    return skill
+
+@app.get("/api/weapon-passives")
+async def get_weapon_passives():
+    weapon_passives = list(weapon_passives_collection.find({}, {"_id": 0}))
+    return {"weapon_passives": weapon_passives}
+
+@app.get("/api/weapon-passives/{passive_id}")
+async def get_weapon_passive(passive_id: str):
+    passive = weapon_passives_collection.find_one({"id": passive_id}, {"_id": 0})
+    if not passive:
+        raise HTTPException(status_code=404, detail="Weapon passive not found")
+    return passive
+
 @app.get("/api/search")
 async def search(query: str):
     try:
