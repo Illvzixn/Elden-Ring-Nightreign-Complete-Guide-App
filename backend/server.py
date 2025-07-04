@@ -949,6 +949,18 @@ def initialize_data():
             "difficulty": "Extreme",
             "percentage": 2.1,
             "rank": 2
+        },
+        # Additional Equipment Achievement
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Master of Arms",
+            "description": "Acquire all weapon types",
+            "category": "Equipment",
+            "requirements": "Collect all weapon categories",
+            "reward": "Weapon Master Title",
+            "difficulty": "Easy",
+            "percentage": 72.6,
+            "rank": 36
         }
     ]
     
