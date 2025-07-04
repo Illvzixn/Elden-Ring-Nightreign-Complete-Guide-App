@@ -25,7 +25,9 @@ function App() {
     weakness: '',
     playstyle: '',
     minLevel: '',
-    maxLevel: ''
+    maxLevel: '',
+    creatureType: '',
+    threatLevel: ''
   });
   const [showCustomBuildForm, setShowCustomBuildForm] = useState(false);
   const [customBuildData, setCustomBuildData] = useState({
