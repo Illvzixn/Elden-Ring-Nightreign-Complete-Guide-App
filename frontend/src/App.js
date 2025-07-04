@@ -112,16 +112,18 @@ function App() {
     }
   };
 
-  const handleFilterCharacters = async () => {
+  const handleFilterCreatures = async () => {
     try {
       const params = new URLSearchParams();
-      if (filters.playstyle) params.append('playstyle', filters.playstyle);
+      if (filters.creatureType) params.append('type', filters.creatureType);
+      if (filters.threatLevel) params.append('threat_level', filters.threatLevel);
+      if (filters.weakness) params.append('weakness', filters.weakness);
 
-      const response = await fetch(`${API_BASE_URL}/api/filter-characters?${params}`);
+      const response = await fetch(`${API_BASE_URL}/api/filter-creatures?${params}`);
       const data = await response.json();
-      setCharacters(data.characters || []);
+      setCreatures(data.creatures || []);
     } catch (error) {
-      console.error('Error filtering characters:', error);
+      console.error('Error filtering creatures:', error);
     }
   };
 
