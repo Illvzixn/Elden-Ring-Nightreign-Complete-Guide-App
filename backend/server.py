@@ -2046,6 +2046,9 @@ def initialize_data():
     builds_collection.create_index([("name", "text"), ("description", "text")])
     achievements_collection.create_index([("name", "text"), ("description", "text")])
     creatures_collection.create_index([("name", "text"), ("description", "text"), ("type", "text")])
+    secrets_collection.create_index([("name", "text"), ("description", "text"), ("category", "text")])
+    weapon_skills_collection.create_index([("name", "text"), ("description", "text"), ("category", "text")])
+    weapon_passives_collection.create_index([("name", "text"), ("description", "text"), ("category", "text")])
 
 # Initialize data on startup
 initialize_data()
