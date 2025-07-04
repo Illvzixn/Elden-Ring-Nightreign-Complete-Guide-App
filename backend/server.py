@@ -88,8 +88,8 @@ def initialize_data():
             "weaknesses": ["Fire"],
             "damage_types": ["Magic", "Poison"],
             "difficulty_rating": 6,
-            "min_level": 5,
-            "max_level": 9,
+            "min_level": 13,
+            "max_level": 15,
             "recommended_strategies": [
                 "Use fire attacks to counter its abilities",
                 "Focus on one insect at a time",
