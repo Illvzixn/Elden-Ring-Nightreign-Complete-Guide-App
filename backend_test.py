@@ -280,15 +280,16 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         """Test data validation for bosses and characters"""
         print("\n🔍 Testing data validation...")
         
-        # Check boss level ranges
+        # Check boss level ranges - all should be 13-15 now
         response = requests.get(f"{self.base_url}/api/bosses")
         self.assertEqual(response.status_code, 200)
         data = response.json()
         
         for boss in data["bosses"]:
-            self.assertLessEqual(boss["max_level"], 25, f"Boss {boss['name']} has max_level > 25")
-            self.assertGreaterEqual(boss["min_level"], 1, f"Boss {boss['name']} has min_level < 1")
-        print("✅ Boss level range validation passed - All bosses have correct level ranges (1-25)")
+            self.assertEqual(boss["min_level"], 13, f"Boss {boss['name']} has min_level != 13")
+            self.assertEqual(boss["max_level"], 15, f"Boss {boss['name']} has max_level != 15")
+            print(f"  - {boss['name']}: Level Range {boss['min_level']} - {boss['max_level']}")
+        print("✅ Boss level range validation passed - All bosses have correct level ranges (13-15)")
         
         # Check character max levels
         response = requests.get(f"{self.base_url}/api/characters")
