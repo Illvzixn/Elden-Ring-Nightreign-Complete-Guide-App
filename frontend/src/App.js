@@ -146,7 +146,9 @@ function App() {
       weakness: '',
       playstyle: '',
       minLevel: '',
-      maxLevel: ''
+      maxLevel: '',
+      creatureType: '',
+      threatLevel: ''
     });
     fetchData();
   };
