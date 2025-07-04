@@ -3,6 +3,7 @@ import unittest
 import sys
 import os
 import json
+import uuid
 
 class EldenRingNightReignAPITest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
@@ -18,6 +19,8 @@ class EldenRingNightReignAPITest(unittest.TestCase):
         self.boss_id = None
         self.character_id = None
         self.build_id = None
+        self.achievement_id = None
+        self.walkthrough_id = None
 
     def test_01_root_endpoint(self):
         """Test the root endpoint"""
