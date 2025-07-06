@@ -21,7 +21,9 @@ app.add_middleware(
 # Database connection
 MONGO_URL = os.environ.get('MONGO_URL')
 client = MongoClient(MONGO_URL)
-db = client.nightreign_guide
+DB_NAME = os.getenv("DB_NAME", "nightreign_guide")
+db = client[DB_NAME] 
+# db = client.nightreign_guide
 
 # Collections
 bosses_collection = db.bosses
